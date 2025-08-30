@@ -1,0 +1,53 @@
+<header class="clearfix">
+    <div class="">
+        <div class="company-info">
+            <h2 class="title">{[nombre_emp]}</h2>
+            <span>{[direccion_emp]}</span><br>
+            <span class="line"></span>
+            <a class="phone" href="tel:{[telefono_emp]}">{[telefono_emp]} |</a>
+            <span class="line"></span>
+            <a class="email">Prop. {[ruc_emp]}</a>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="details clearfix">
+        <div class="client left">
+            {[data_name]}
+        </div>
+        <div class="data right">
+            <div class="title" style="font-size: 22px;font-weight: 900">{[report_nombre]}</div>
+            <div class="date">
+                Fecha de inicio: {[report_fi]}<br>
+                Fin: {[report_ff]}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="table-wrapper">
+            <table>
+                <tbody class="head">
+                    {[table_thead]}
+                </tbody>
+                <tbody class="body">
+                    {[table_body]}
+                </tbody>
+            </table>
+        </div>
+        <div class="no-break">
+            <table class="grand-total">
+                <tbody>
+                    {[table_foot]}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="thanks">Gracias!</div>
+        <div class="end">La factura se creó en una computadora y es válida sin la firma y el sello.</div>
+    </div>
+</footer>

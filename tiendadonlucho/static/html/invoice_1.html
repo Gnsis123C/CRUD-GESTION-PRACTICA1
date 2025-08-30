@@ -1,0 +1,51 @@
+<header class="clearfix">
+    <div class="container">
+        <div class="company-address">
+            <h2 class="title">{[nombre_emp]}</h2>
+            <p>
+                {[ruc_emp]},<br>
+                {[telefono_emp]}, EC
+            </p>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="details clearfix">
+            <div class="client left">
+                {[data_name]}
+            </div>
+            <div class="data right">
+                <div class="title" style="font-size: 20px"><b>REPORTE DE {[report_nombre]}</b></div>
+                <div class="date">
+                    Fecha de inicio: {[report_fi]}<br>
+                    Fin: {[report_ff]}
+                </div>
+            </div>
+        </div>
+
+        <table border="0" cellspacing="0" cellpadding="0">
+            <thead>
+                {[table_thead]}
+            </thead>
+            <tbody>
+                {[table_body]}
+            </tbody>
+        </table>
+        <div class="no-break">
+            <table class="grand-total">
+                <tbody>
+                    {[table_foot]}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="end">La factura se creó en una computadora y es válida sin la firma y el sello.</div>
+    </div>
+</footer>
+

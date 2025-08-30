@@ -1,0 +1,619 @@
+<?php $this->load->view('data/sesion'); ?>
+<?php $this->load->view('data/typehtml') ?>
+<html lang="<?php $this->load->view('data/lang') ?>">
+    <head>
+        <meta charset="utf-8">
+        <title><?= $this->session->userdata('empresa')[0]->nombre ?> | <?= $title ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="<?= base_url() ?>static/img/icono_1.png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <?php $this->load->view('data/css') ?>
+        <link href="<?= base_url() ?>static/datapicker/datepicker3.css" rel="stylesheet" type="text/css"/>
+        <link href="<?= base_url() ?>static/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css"/>
+        <style>
+            #tdetalle > tr > td.middle{
+                vertical-align: middle;
+            }
+            .double-bounce1, .double-bounce2 {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background-color: black;
+                opacity: 0.6;
+                position: absolute;
+                top: 0;
+                left: 0;
+                -webkit-animation: bounce 2.0s infinite ease-in-out;
+                animation: bounce 1.2s infinite ease-in-out;
+            }
+            .data-title:before {
+                content: attr(data-menutitle);
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                background-image: linear-gradient(to bottom,#fff 0,#f8f8f8 100%);
+                padding: 2px;
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-size: 9px;
+                font-weight: bold;
+                text-align: right;
+            }
+            .data-title :first-child {
+                margin-top: 11px;
+            }
+            .panel-info>.panel-heading,#tabla > thead {
+                background-image: linear-gradient(to bottom,#fff 0,#f8f8f8 100%);
+                border: 1px solid transparent;
+                border-color: #e7e7e7;
+            }
+            .panel-info {
+                border-color: #e7e7e7;
+            }
+            .select-checkbox{
+                background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
+                cursor: pointer
+            }
+            body{
+                background-image: linear-gradient(to bottom,#f7f7f7 0,#f7f7f7 100%);
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+                font-size: 13px;
+                line-height: 1.42857143;
+                color: #333;
+                background-color: #fff;
+            }
+            body > div > div.row-fluid > div > ul > li > a{
+                color: #000;
+                text-decoration: none;
+            }
+            body > div > div.row-fluid > div > ul > li > a:hover{
+                color: #003eff;
+            }
+            .active_{
+                font-weight: bold;
+            }
+            #tdetalle > tr > td > div > div > ul > li > a.dropdown-2-disabled {
+                color: #bbb;
+                cursor: no-drop;
+                background-color: #fff;
+            }
+            #tdetalle > tr > td > div > div > ul > li > a.dropdown-2-disabled:enabled {
+                color: #bbb;
+                background-color: #fff;
+                background: #fff;
+            }
+            .btn-default {
+                text-shadow: rgb(255, 255, 255) 0px 1px 0px;
+                background-image: none;
+                background-repeat: repeat-x;
+                border-color: rgb(204, 204, 204);
+            }
+            .form-control-feedback {
+                position: absolute;
+                top: 0px;
+                right: 0;
+                z-index: 2;
+                display: block;
+                width: 34px;
+                height: 34px;
+                line-height: 34px;
+                text-align: center;
+                pointer-events: none;
+            }
+        </style>
+        <style>
+            #chartdiv {
+                width: 100%;
+                height: 300px;
+            }
+            .box-s{
+                -webkit-box-shadow: -7px 10px 22px -16px rgba(0,0,0,0.75);
+                -moz-box-shadow: -7px 10px 22px -16px rgba(0,0,0,0.75);
+                box-shadow: -7px 10px 22px -16px rgba(0,0,0,0.75);
+                margin-bottom: 40px;
+            }
+        </style>
+        <!-- Styles -->
+        <style>
+            #chartdiv2 {
+                width: 100%;
+                height: 300px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="fakeloader" style="display: none;position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(255, 255, 255); z-index: 999;"></div>
+        <header>
+            <?php $this->load->view('data/nav'); ?>
+        </header>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <ul class="breadcrumb" style="background: #fff;">
+                        <li>
+                            <a href="<?= base_url() ?>">Inicio</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <section class="container-fluid" id="panel-listar">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row-fluid">
+                        <div class="container-fluid">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <h2 class="text-primary" id="title-listar" style="font-size: 20px">
+                                    <?= $title ?>
+                                </h2>
+                            </div>
+                            <!--<div class="col-md-6 col-sm-12 col-xs-12"  style="padding-top: 1%" align="right">
+                                <h2 class="text-primary" style="font-size: 20px"><a href="#" rel="action" id="pruebaBoton" data-json='{"action": "add","idtipoproc":""}' class="btn btn-success btn-sm sbox">
+                                        <i class="glyphicon glyphicon-plus-sign"></i>
+                                        Nuevo Registro
+                                    </a>
+                                </h2>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="panelListar">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-xl-12">
+                                <section class="">
+                                    <div class="panel-body" id="">
+                                        <div>
+                                            <div class="">
+                                                <form id="demo-form2"  autocomplete="off">
+                                                    <label for="id-date-range-picker-1">Rango de fecha   <?= (isset($_GET['fi']) ? ' | Mostrando.. ' . ($_GET['fi'] . ' - ' . $_GET['ff']) : '') ?></label>
+                                                    <div class="form-group row">
+                                                        <div class="col-md-6">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </span>
+                                                                <input class="form-control" placeholder="Ingresar rango" value="<?= (isset($_GET['fi']) ? ($_GET['fi'] . ' - ' . $_GET['ff']) : '') ?>" type="text" name="fecha" id="fecha" required="" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <?php if (isset($_GET['fi'])) { ?>
+                                <div class="col-md-12 col-lg-12 col-xl-12">
+                                    <div class="row" style="padding: 0 50px">
+                                        <div class="col-md-12 col-lg-6 col-xl-6 box-s">
+                                            <!-- HTML -->
+                                            <div id="chartdiv"></div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-6 col-xl-6 box-s" style="text-align: center">
+                                            <!-- HTML -->
+                                            <div id="chartdiv2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+
+                            <div class="col-md-12 col-lg-7 col-xl-7">
+                                <section class="panel">
+                                    <div class="panel-body" id="">
+                                        <table class="table table-bordered" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+                                            <thead id="thtabla">
+                                            </thead>
+                                            <tbody id="tbody">
+                                                <tr><td id="colspam" colspan="4" align="center">Ningún dato</td></tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        Total:
+                                                    </td>
+                                                    <td align="center" id="ingreso_cantidad">
+                                                        0
+                                                    </td>
+                                                    <td align="center" id="ingreso_stock">
+                                                        0
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-md-12 col-lg-5 col-xl-5">
+                                <section class="panel">
+                                    <div class="panel-body" id="">
+                                        <table class="table table-bordered" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+                                            <thead id="thtabla_egreso">
+                                            </thead>
+                                            <tbody id="tbody_egreso">
+                                                <tr><td id="colspam_egreso" colspan="4" align="center">Ningún dato</td></tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        Total:
+                                                    </td>
+                                                    <td align="center" id="egreso_cantidad">
+                                                        0
+                                                    </td>
+                                                    <td align="center" id="egreso_precio">
+                                                        0
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
+        <br>
+        <br>
+        <footer style="">
+            <?php $this->load->view('data/footer'); ?>
+        </footer>
+        <section class="container-fluid" style="display: none" id="panel-form">
+            <div class="col-md-8 col-md-offset-2">
+                <?php $this->load->view('data/form/' . $nameform); ?>
+            </div>
+        </section>
+        <?php $this->load->view('data/js'); ?>
+        <script src="<?= base_url() ?>static/plugin/cedulayruc.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>static/jquery.bootstrap-touchspin/jquery.bootstrap-touchspin.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>static/datapicker/bootstrap-datepicker.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>static/locales/bootstrap-datepicker.es.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>static/moment/moment.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>static/moment/locale/es.js" type="text/javascript"></script>
+
+        <script src="<?= base_url() ?>static/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+        <!-- Resources -->
+        <?php if (isset($_GET['fi'])) { ?>
+            <script src="https://www.amcharts.com/lib/4/core.js"></script>
+            <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+            <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+            <!-- Fecha -->
+            <!-- Chart code -->
+            <script>
+                am4core.ready(function () {
+
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+
+                    // Create chart instance
+                    var chart = am4core.create("chartdiv2", am4charts.XYChart3D);
+
+                    // Add data
+                    chart.data = [
+                        {
+                            "nombre": "Ing. Stock",
+                            "visits": <?= $ingreso->stock == null ? 0 : $ingreso->stock ?>
+                        },
+                        {
+                            "nombre": "Ing. Cantidad",
+                            "visits": <?= $ingreso->cantidad == null ? 0 : $ingreso->cantidad ?>
+                        }, {
+                            "nombre": "Egreso",
+                            "visits": <?= $egreso->total == null ? 0 : $egreso->total ?>
+                        }
+                    ];
+
+                    // Create axes
+                    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                    categoryAxis.dataFields.category = "nombre";
+                    categoryAxis.renderer.labels.template.rotation = 270;
+                    categoryAxis.renderer.labels.template.hideOversized = false;
+                    categoryAxis.renderer.minGridDistance = 20;
+                    categoryAxis.renderer.labels.template.horizontalCenter = "right";
+                    categoryAxis.renderer.labels.template.verticalCenter = "middle";
+                    categoryAxis.tooltip.label.rotation = 270;
+                    categoryAxis.tooltip.label.horizontalCenter = "right";
+                    categoryAxis.tooltip.label.verticalCenter = "middle";
+
+                    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                    valueAxis.title.text = "Ingresos y egresos de productos";
+                    valueAxis.title.fontWeight = "bold";
+
+                    // Create series
+                    var series = chart.series.push(new am4charts.ColumnSeries3D());
+                    series.dataFields.valueY = "visits";
+                    series.dataFields.categoryX = "nombre";
+                    series.name = "Visits";
+                    series.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+                    series.columns.template.fillOpacity = .8;
+
+                    var columnTemplate = series.columns.template;
+                    columnTemplate.strokeWidth = 2;
+                    columnTemplate.strokeOpacity = 1;
+                    columnTemplate.stroke = am4core.color("#FFFFFF");
+
+                    columnTemplate.adapter.add("fill", function (fill, target) {
+                        return chart.colors.getIndex(target.dataItem.index);
+                    })
+
+                    columnTemplate.adapter.add("stroke", function (stroke, target) {
+                        return chart.colors.getIndex(target.dataItem.index);
+                    })
+
+                    chart.cursor = new am4charts.XYCursor();
+                    chart.cursor.lineX.strokeOpacity = 0;
+                    chart.cursor.lineY.strokeOpacity = 0;
+
+                }); // end am4core.ready()
+            </script>
+
+            <!-- Chart code -->
+            <script>
+                am4core.ready(function () {
+
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+
+
+
+                    // Create chart instance
+                    var chart = am4core.create("chartdiv", am4charts.RadarChart);
+
+                    // Add data
+                    chart.data = [{
+                            "category": "% Productos Faltante del inv",
+                            "value": <?= ((($ingreso->stock == null ? 0 : $ingreso->stock) * 100) / ($ingreso->cantidad == null ? 0 : $ingreso->cantidad)) ?>,
+                            "full": 100
+                        }, {
+                            "category": "% Productos Comprados de acuerdo al inv",
+                            "value": <?= ((($egreso->total == null ? 0 : $egreso->total) * 100) / ($ingreso->cantidad == null ? 0 : $ingreso->cantidad)) ?>,
+                            "full": 100
+                        }];
+
+                    // Make chart not full circle
+                    chart.startAngle = -90;
+                    chart.endAngle = 180;
+                    chart.innerRadius = am4core.percent(20);
+
+                    // Set number format
+                    chart.numberFormatter.numberFormat = "#.#'%'";
+
+                    // Create axes
+                    var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+                    categoryAxis.dataFields.category = "category";
+                    categoryAxis.renderer.grid.template.location = 0;
+                    categoryAxis.renderer.grid.template.strokeOpacity = 0;
+                    categoryAxis.renderer.labels.template.horizontalCenter = "right";
+                    categoryAxis.renderer.labels.template.fontWeight = 500;
+                    categoryAxis.renderer.labels.template.adapter.add("fill", function (fill, target) {
+                        return (target.dataItem.index >= 0) ? chart.colors.getIndex(target.dataItem.index) : fill;
+                    });
+                    categoryAxis.renderer.minGridDistance = 10;
+
+                    var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+                    valueAxis.renderer.grid.template.strokeOpacity = 0;
+                    valueAxis.min = 0;
+                    valueAxis.max = 100;
+                    valueAxis.strictMinMax = true;
+
+                    // Create series
+                    var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+                    series1.dataFields.valueX = "full";
+                    series1.dataFields.categoryY = "category";
+                    series1.clustered = false;
+                    series1.columns.template.fill = new am4core.InterfaceColorSet().getFor("alternativeBackground");
+                    series1.columns.template.fillOpacity = 0.08;
+                    series1.columns.template.cornerRadiusTopLeft = 20;
+                    series1.columns.template.strokeWidth = 0;
+                    series1.columns.template.radarColumn.cornerRadius = 20;
+
+                    var series2 = chart.series.push(new am4charts.RadarColumnSeries());
+                    series2.dataFields.valueX = "value";
+                    series2.dataFields.categoryY = "category";
+                    series2.clustered = false;
+                    series2.columns.template.strokeWidth = 0;
+                    series2.columns.template.tooltipText = "{category}: [bold]{value}[/]";
+                    series2.columns.template.radarColumn.cornerRadius = 20;
+
+                    series2.columns.template.adapter.add("fill", function (fill, target) {
+                        return chart.colors.getIndex(target.dataItem.index);
+                    });
+
+                    // Add cursor
+                    chart.cursor = new am4charts.RadarCursor();
+
+                }); // end am4core.ready()
+            </script>
+        <?php } ?>
+
+        <script>
+            $(function () {
+                var column = ['N°', 'Fecha','Producto', 'Fecha de caducidad', 'Cantidad', 'Saldo'];
+                var dibujarColumn = '<tr>';
+                for (var i in column) {
+                    dibujarColumn += '<th>' + column[i] + '</th>';
+                }
+                $('#colspam').attr('colspan', column.length);
+                $('#thtabla').append('<tr><th style="text-align:center" colspan="' + column.length + '">Ingreso de productos</th></tr>' + dibujarColumn);
+                /*EGRESO*/
+                var column2 = ['N°', 'Fecha','Producto','Tipo', 'Cantidad', 'Precio'];
+                var dibujarColumn2 = '<tr>';
+                for (var i in column2) {
+                    dibujarColumn2 += '<th>' + column2[i] + '</th>';
+                }
+                $('#colspam_egreso').attr('colspan', column2.length);
+                $('#thtabla_egreso').append('<tr><th style="text-align:center" colspan="' + column2.length + '">Egreso de productos</th></tr>' + dibujarColumn2);
+                moment.locale('es');
+                var tabla = {
+                    arr: [],
+                    arr2: [],
+                    fi: '',
+                    ff: '',
+                    dibujar: function () {
+                        var json = this.arr;
+                        var existe = false;
+                        var total = 0;
+                        var stock = 0;
+                        $('#panel-detalle').css('display', 'block');
+                        $('#tbody tr').remove();
+                        for (var i in json) {
+                            var ins = json[i];
+                            existe = true;
+                            var html = '';
+                            html += '<tr>';
+                            html += '<td align="center">' + (i * 1 + 1) + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.fechaingreso + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.nombre + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.fechaexpiracion + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.cantidad + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.stock + '</td>';
+                            total = total + parseInt(ins.cantidad);
+                            stock = stock + parseInt(ins.stock);
+                            html += '</tr>';
+                            $('#tbody').append(html);
+                        }
+                        $('#ingreso_cantidad ').html(total);
+                        $('#ingreso_stock ').html(stock);
+                        if (!existe) {
+                            $('#tbody').append('<tr><td colspan="' + column.length + '" align="center">Ningún dato</td></tr>');
+                            $('#ingreso_cantidad, #ingreso_stock ').html(0);
+                        }
+
+
+                    }, dibujar2: function () {
+                        var json = this.arr2;
+                        var existe = false;
+                        var total = 0;
+                        var cantidad = 0;
+                        $('#panel-detalle').css('display', 'block');
+                        $('#tbody_egreso tr').remove();
+                        for (var i in json) {
+                            var ins = json[i];
+                            existe = true;
+                            var html = '';
+                            html += '<tr>';
+                            html += '<td align="center">' + (i * 1 + 1) + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.fecha + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.nombreproducto + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.nombretipo + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">' + ins.cantidad + '</td>';
+                            html += '<td align="center" style="background-color:#fcfcfc">$ ' + ins.precio + '</td>';
+                            total = total + parseFloat(ins.precio);
+                            cantidad = cantidad + parseInt(ins.cantidad);
+                            html += '</tr>';
+                            $('#tbody_egreso').append(html);
+                        }
+                        $('#egreso_cantidad ').html(cantidad);
+                        $('#egreso_precio').html('$ '+total);
+                        if (!existe) {
+                            $('#egreso_precio, #egreso_cantidad ').html(0);
+                            $('#tbody_egreso').append('<tr><td colspan="' + column.length + '" align="center">Ningún dato</td></tr>');
+                        }
+
+
+                    },
+                    llenarcombo: function () {
+                        var json = this.arr;
+                        $('#idcompra').find('option').remove();
+                        for (var i in json.compra) {
+                            var d = json.compra[i];
+                            $('#idcompra').append('<option json=\'' + JSON.stringify(d) + '\'  value="' + d.idcompra + '" >PROVEEDOR: ' + d.nombres + ' ' + d.cedularuc + ' / ' + d.fecha + '</option>');
+                        }
+                    }
+                }
+                $('input[name=fecha]').daterangepicker({
+                    'applyClass': 'btn-xs btn-success',
+                    ranges: {
+                        'Hoy': [moment(), moment()],
+                        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Los últimos 7 días': [moment().subtract(6, 'days'), moment()],
+                        //'Últimos 30 días': [moment().subtract(29, 'days'), moment()],
+                        'Este mes': [moment().startOf('month'), moment().endOf('month')],
+                        'El mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    }, locale: {
+                        format: 'YYYY/MM/DD',
+                        cancelLabel: 'Limpiar',
+                        applyLabel: 'Aceptar',
+                        customRangeLabel: "Abrir Calendario"
+                    },
+                    startDate: moment(),
+                    endDate: moment(),
+                    "opens": "right",
+                    "cancelClass": "btn-xs btn-danger"
+                });
+                $('input[name=fecha]').val('');
+                var fechai = '';
+                var fechaf = '';
+<?php if (isset($_GET['fi'])) { ?>
+                    $.ajax({
+                        'url': '<?= base_url() ?>reporte/<?= $url ?>',
+                                    'type': 'POST',
+                                    'data': {fi: '<?= $_GET['fi'] ?>', ff: '<?= $_GET['ff'] ?>'},
+                                    'dataType': 'json',
+                                    'timeout': 15000,
+                                    beforeSend: function () {
+                                        $('#tbody tr').remove();
+                                        $('#tbody').append('<tr><td colspan="' + column.length + '" align="center"><i class="fa fa fa-refresh fa-spin"></i> Consultando...</td></tr>');
+                                        $('#tbody_egreso').append('<tr><td colspan="' + column2.length + '" align="center"><i class="fa fa fa-refresh fa-spin"></i> Consultando...</td></tr>');
+                                    },
+                                    success: function (data) {
+                                        tabla.fi = fechai;
+                                        tabla.ff = fechaf;
+                                        tabla.arr = data.ingreso;
+                                        tabla.arr2 = data.egreso;
+                                        $('#guardarcomo').prop('disabled', false);
+                                        //document.getElementById("demo-form2").reset();
+                                        tabla.dibujar();
+                                        tabla.dibujar2();
+                                        $('#form-fecha').css('display', 'none');
+                                        $('#form-compra').css('display', 'block');
+                                        return true;
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        if (jqXHR.status === 0) {
+                                            alert('No estás conectado, verifica tu conección.');
+                                        } else if (jqXHR.status == 404) {
+                                            alert('Respuesta, página no existe [504].');
+                                        } else if (jqXHR.status == 500) {
+                                            alert('Error interno del servidor [500].');
+                                        } else if (textStatus === 'parsererror') {
+                                            alert('Respuesta JSON erróneo.');
+                                        } else if (textStatus === 'timeout') {
+                                            alert('Error, tiempo de respuesta.');
+                                        } else if (textStatus === 'abort') {
+                                            alert('Respuesta ajax abortada.');
+                                        } else {
+                                            alert('Uncaught Error: ' + jqXHR.responseText);
+                                        }
+                                    }
+                                });
+<?php } ?>
+                            $('input[name=fecha]').on('apply.daterangepicker', function (ev, picker) {
+                                fechai = picker.startDate.format('YYYY/MM/DD');
+                                fechaf = picker.endDate.format('YYYY/MM/DD');
+                                window.location = '<?= base_url() ?>reporte?action=<?= $action ?>&fi=' + fechai + '&ff=' + fechaf
+                                return false;
+                            });
+                            $('input[name=fecha]').on('cancel.daterangepicker', function (ev, picker) {
+                                location.reload();
+                                return false;
+                            });
+                            $('#demo-form2').keypress(function (e) {
+                                if (e.which == 13) {
+                                    return false;
+                                }
+                            });
+                            $('#print').click(function () {
+                                window.print();
+                            });
+                        })
+        </script>
+    </body>
+</html>

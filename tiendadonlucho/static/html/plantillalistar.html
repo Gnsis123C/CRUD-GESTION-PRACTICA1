@@ -1,0 +1,39 @@
+<header class="clearfix">
+    <div class="">
+        <div class="company-info">
+            <h2 class="title">{[nombre_emp]}</h2>
+            <span>{[direccion_emp]}</span><br>
+            <span class="line"></span>
+            <a class="phone" href="tel:{[telefono_emp]}">{[telefono_emp]} |</a>
+            <span class="line"></span>
+            <a class="email">Prop. {[ruc_emp]}</a>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="details clearfix">
+        <div class="client left">
+            {[report_nombre]}
+        </div>
+    </div>
+    <div class="container">
+        <div class="table-wrapper">
+            <table>
+                <tbody class="head">
+                    {[table_thead]}
+                </tbody>
+                <tbody class="body">
+                    {[table_body]}
+                </tbody>
+            </table>
+        </div>
+        <div class="no-break">
+            <table class="grand-total">
+                <tbody>
+                    {[table_foot]}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
