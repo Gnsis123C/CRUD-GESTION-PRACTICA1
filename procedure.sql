@@ -1,3 +1,4 @@
+DELIMITER $$
 BEGIN
 DECLARE v_existe INTEGER DEFAULT 0;
 DECLARE v_cantidadrestar INTEGER DEFAULT 0;
@@ -44,4 +45,5 @@ DECLARE runners_cursor CURSOR FOR
         
     END LOOP get_runners;
     CLOSE runners_cursor;
-END
+END$$
+DELIMITER ;

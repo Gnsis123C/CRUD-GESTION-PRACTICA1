@@ -351,7 +351,7 @@
                                             <div class="iconname">
                                                 <div class="pd">
                                                     <h4 class="tituloicon">Clientes</h4>
-                                                    <span class="icondesc">Administración de clientes</span>
+                                                    <span class="icondesc">Administración de todos los clientes</span>
                                                 </div>
                                             </div>
                                         </a>
@@ -363,8 +363,8 @@
                                             </div>
                                             <div class="iconname">
                                                 <div class="pd">
-                                                    <h4 class="tituloicon">Empleado</h4>
-                                                    <span class="icondesc">Listado de Empleado</span>
+                                                    <h4 class="tituloicon">Empleados</h4>
+                                                    <span class="icondesc">Listado de todos los Empleados</span>
                                                 </div>
                                             </div>
                                         </a>
@@ -386,8 +386,8 @@
                                         </div>
                                         <div class="iconname">
                                             <div class="pd">
-                                                <h4 class="tituloicon">Proveedor</h4>
-                                                <span class="icondesc">Administración de Proveedor.</span>
+                                                <h4 class="tituloicon">Proveedores</h4>
+                                                <span class="icondesc">Administración de todos los Proveedores.</span>
                                             </div>
                                         </div>
                                     </a>
@@ -402,8 +402,8 @@
                                         </div>
                                         <div class="iconname">
                                             <div class="pd">
-                                                <h4 class="tituloicon">Inventario Producto</h4>
-                                                <span class="icondesc">Administración de Inventario Producto.</span>
+                                                <h4 class="tituloicon">Inventario de Productos</h4>
+                                                <span class="icondesc">Administración de Inventario de Productos.</span>
                                             </div>
                                         </div>
                                     </a>
@@ -415,8 +415,8 @@
                                         </div>
                                         <div class="iconname">
                                             <div class="pd">
-                                                <h4 class="tituloicon">Inventario Producto Filtro</h4>
-                                                <span class="icondesc">Inventario Producto con Filtro.</span>
+                                                <h4 class="tituloicon">Inventario Productos de Filtros</h4>
+                                                <span class="icondesc">Inventario de Productos con Filtro.</span>
                                             </div>
                                         </div>
                                     </a>
@@ -431,8 +431,8 @@
                                         </div>
                                         <div class="iconname">
                                             <div class="pd">
-                                                <h4 class="tituloicon">Producto</h4>
-                                                <span class="icondesc">Administración de Producto</span>
+                                                <h4 class="tituloicon">Productos</h4>
+                                                <span class="icondesc">Administración de todos los Productos</span>
                                             </div>
                                         </div>
                                     </a>
